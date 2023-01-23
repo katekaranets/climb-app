@@ -1,0 +1,22 @@
+<div class="search-container">
+  <form class="search-form" [formGroup]="searchForm" (ngSubmit)="search()">
+    <h1>Find climbing gym</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Choose country</mat-label>
+      <mat-select>
+        <mat-option value="Germany">Germany</mat-option>
+        <mat-option value="Spain">Spain</mat-option>
+        <mat-option value="Option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Choose city</mat-label>
+      <mat-select>
+        <mat-option value="Madrid">Madrid</mat-option>
+        <mat-option value="Madrid">Madrid</mat-option>
+        <mat-option value="Minsk">Minsk</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary">Search</button>
+  </form>
+</div>

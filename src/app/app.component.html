@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="nav-container">
+  <div>
+    <button mat-button routerLink="/"><strong>{{title}}</strong></button>
+
+    <button mat-button routerLink="/">Search</button>
+    <button mat-button routerLink="/game">
+      Play
+    </button>
+  </div>
+  <div>
+    <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
+      Login
+    </button>
+    <button mat-button *ngIf="isAuthenticated" (click)="logout()">
+      Logout
+    </button>
+  </div>
+  
+</mat-toolbar>
+<div class="background"></div>
+
+<router-outlet></router-outlet>
