@@ -19,7 +19,7 @@ export class ClimbSearchComponent {
   });
 
   public search() {
-    this.router.navigate(['result']);
+    this.router.navigate(['gym-list']);
     console.log('search')
   }
 }

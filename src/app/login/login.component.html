@@ -1,5 +1,6 @@
 <div class="login-container">
   <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <h2>Login</h2>
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Email</mat-label>
       <input formControlName="email" type="email" matInput [errorStateMatcher]="matcher"
@@ -22,6 +23,9 @@
           Password is <strong>required</strong>
       </mat-error> -->
     </mat-form-field>
+
+    <p><a routerLink="/login">Sign up</a> if you don't have an account.</p>
+    <p><a routerLink="/">Forgot your password?</a></p>
     <button mat-raised-button type="submit" color="primary">LOGIN</button>
   </form>
 </div>

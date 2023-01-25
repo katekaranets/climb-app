@@ -1,25 +1,3 @@
-// :host {
-//   display: block;
-// }
-
-// .landing-img:before {
-//   content: ' ';
-//   display: block;
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   opacity: 0.7;
-//   background-image: url('../assets/landing3.jpeg');
-//   background-repeat: no-repeat;
-//   background-size: cover;
-// }
-
-// ::ng-deep .mat-input-underline {
-//   background-color: white;    /* replace this color with your accent color hex code */
-// }
-
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -27,8 +5,8 @@
 
 .background {
   position: absolute;
-  z-index: -100;
   width: 100%;
   height: 100vh;
-  background-color: #ffdd000f;
+  background-image: url('../assets/line.jpeg');
+  background-size: auto;
 }

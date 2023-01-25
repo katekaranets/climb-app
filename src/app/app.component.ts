@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Subject, takeUntil, take } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from './../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,10 @@ export class AppComponent {
   private $destroy = new Subject<void>();
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { 
+    console.log('hello12345' + environment.production); // Logs false for development environment
+  }
+
 
   public ngOnInit(): void {
     this.authService.$isAuthenticated.pipe(

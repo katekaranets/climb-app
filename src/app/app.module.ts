@@ -44,6 +44,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClimbSearchComponent } from './climb-search/climb-search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { GymDetailsComponent } from './gym-details/gym-details.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { SearchResultComponent } from './search-result/search-result.component';
     LoginComponent,
     HomeComponent,
     ClimbSearchComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    SignUpComponent,
+    GymDetailsComponent
   ],
   imports: [
     BrowserModule,

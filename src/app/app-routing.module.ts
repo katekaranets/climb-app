@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ClimbSearchComponent } from './climb-search/climb-search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { GymDetailsComponent } from './gym-details/gym-details.component';
 
 const routes: Routes = [
   {
@@ -13,12 +15,24 @@ const routes: Routes = [
     // canActivate: [ AuthGuard ]
   },
   {
-    path: 'result',
+    path: 'gym-list',
     component: SearchResultComponent
+  },
+  {
+    path: 'tournaments',
+    component: SearchResultComponent
+  },
+  { 
+    path: 'gym/:id', 
+    component: GymDetailsComponent
   },
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent
   },
   {
     path: '',

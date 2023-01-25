@@ -2,14 +2,17 @@
   <div>
     <button mat-button routerLink="/"><strong>{{title}}</strong></button>
 
-    <button mat-button routerLink="/">Search</button>
-    <button mat-button routerLink="/game">
-      Play
+    <button mat-button routerLink="/search">Search</button>
+    <button mat-button routerLink="/tournaments">
+      Tournaments & Festivals
     </button>
   </div>
   <div>
     <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
       Login
+    </button>
+    <button mat-button routerLink="/signup" *ngIf="!isAuthenticated">
+      Sign up
     </button>
     <button mat-button *ngIf="isAuthenticated" (click)="logout()">
       Logout
@@ -17,6 +20,7 @@
   </div>
   
 </mat-toolbar>
-<div class="background"></div>
+<div class="background">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
