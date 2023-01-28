@@ -13,6 +13,7 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -57,13 +58,24 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "climbApp:build",
+            "proxyConfig": "src/proxy.conf.json",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "browserTarget": "climbApp:build:production"
