@@ -4,9 +4,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Choose country</mat-label>
       <mat-select>
-        <mat-option value="Germany">Germany</mat-option>
-        <mat-option value="Spain">Spain</mat-option>
-        <mat-option value="Option">Option</mat-option>
+        <mat-option  *ngFor="let country of countries" [value]="country.name_en">{{country.name_en}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
