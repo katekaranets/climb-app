@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { GymApiService} from '../services/gym.api.service';
 import { GymService } from '../services/gym.service';
 
@@ -11,7 +12,19 @@ import { GymService } from '../services/gym.service';
 })
 export class ClimbSearchComponent {
   public countries: Array<any> = [];
-  public citis: Array<any> = [];
+  public cities: Array<any> = [];
+  public searchForm1: FormGroup = new FormGroup({});
+  public searchForm: FormGroup = new FormGroup({
+    country:  new FormControl('', {
+      updateOn: 'blur'
+    }),
+    city: new FormControl('', {
+      updateOn: 'blur'
+    }),
+    q: new FormControl('', {
+      updateOn: 'blur'
+    })
+})
 
   constructor (
     private router: Router,
@@ -19,27 +32,45 @@ export class ClimbSearchComponent {
     private gymService: GymService,
     private formBuilder: FormBuilder) {}
 
-  public searchForm = this.formBuilder.group({
-    country: [''],
-    city: [''],
-    q: ['']
-  });
-
   ngOnInit() {
-    this.gymApiService.getCountryList().subscribe(value => {
-      this.countries = [...value];
-    })
+    this.initializeForm();
+
+    this.searchForm.controls['country'].valueChanges
+    .pipe(
+      switchMap(value => {
+        return this.gymApiService.getCityList(String(value))
+      })
+    )
+    .subscribe(cities => {
+      this.cities = [...cities];
+    });
+
+    this.gymApiService.getCountryList()
+      .subscribe(value => {
+        this.countries = [...value];
+    });
   }
+
+  initializeForm() {
+    this.searchForm.setValue({
+      country: '',
+      city: '',
+      q: ''
+    })
+}
 
   public search() {
     let country, city, q;
     ({country, city, q} = this.searchForm.value);
-
 
     const val = this.searchForm.value;
     this.gymApiService.search(val.country, val.city, val.q).subscribe(value => {
       this.gymService.setGymList(value);
       this.router.navigate(['gym-list', value]);
     });
+  }
+
+  public openAllGymsList() {
+    this.router.navigate(['gym-list']);
   }
 }

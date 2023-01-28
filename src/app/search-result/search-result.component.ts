@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, switchMap } from 'rxjs';
+import { GymApiService } from '../services/gym.api.service';
 import { GymService } from '../services/gym.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { GymService } from '../services/gym.service';
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent {
-  displayedColumns: string[] = ['title', 'country', 'address', 'more'];
+  displayedColumns: string[] = ['title', 'country', 'address'];
   public gymList: Array<any> = [];
   public value = null;
 
@@ -18,14 +20,33 @@ export class SearchResultComponent {
   // @ViewChild(MatSort) sort: MatSort;
   // @ViewChild('paginator1') pag: MatPaginator;
 
-  constructor(private gymService: GymService){}
+  constructor(
+    private router: Router,
+    private gymService: GymService,
+    private gymApiService: GymApiService
+
+  ){}
 
   ngOnInit() {
-    this.gymService.gymList$.subscribe( value => {
+    this.gymService.gymList$
+    .pipe(
+      switchMap(value => {
+        if(!value || !value.length) {
+          return this.gymApiService.search('', '', '');
+        } else {
+          this.gymList = [...value];
+          return value
+        }
+      })
+    )
+    .subscribe(value => {
       this.gymList = [...value];
     })
   }
 
+  openGymPage(gym: any) {
+    this.router.navigateByUrl(`gym/${gym.id}`)
+  }
 
   // ngAfterViewInit() {
   //   this.dataSource.paginator = this.paginator;

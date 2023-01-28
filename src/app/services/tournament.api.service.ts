@@ -19,10 +19,6 @@ export class TournamentApiService {
   getTournaments(): Observable<any> {
     return this.http.get('/api/search/comp')
   }
-
-  // getGyms(id: number | string): Observable<any> {
-  //   return this.http.get('/api/search/gyms')
-  // }
   
   // getCountryList(): Observable<any> {
   //   return this.http.get('/api/search/geo', {

@@ -2,9 +2,9 @@
   display: block;
   margin: 0 auto;
   margin-top: 50px;
-  height: 400px;
   width: 1000px;
   max-width: 100%;
+  max-height: calc(100% - 120px);
   overflow: auto;
   box-shadow: 1px 1px 3px 0px grey;
 }
@@ -28,4 +28,10 @@ th.mat-column-position, td.mat-column-position {
 
 .mat-mdc-table-sticky-border-elem-left {
   border-right: 1px solid #e0e0e0;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
 }

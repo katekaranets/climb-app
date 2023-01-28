@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TournamentApiService } from '../services/tournament.api.service';
 
 @Component({
@@ -7,15 +8,22 @@ import { TournamentApiService } from '../services/tournament.api.service';
   styleUrls: ['./tournament.component.scss']
 })
 export class TournamentComponent {
-  displayedColumns: string[] = ['gym', 'country', 'city', 'available_spots'];
+  displayedColumns: string[] = ['gym', 'country', 'city', 'available_spots', 'registration'];
   public tournamentsList: Array<any> = [];
 
-  constructor(private tournamentService: TournamentApiService){}
+  constructor(
+    private router: Router,
+    private tournamentService: TournamentApiService){}
   
   ngOnInit() {
     this.tournamentService.getTournaments().subscribe( value => {
       this.tournamentsList = [...value];
     })
+  }
+
+  register(tournament: any) {
+    this.router.navigateByUrl(`tournament/${tournament.id}`)
+
   }
 
   // @ViewChild('paginator1') paginator;

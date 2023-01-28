@@ -46,6 +46,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { GymDetailsComponent } from './gym-details/gym-details.component';
 import { TournamentComponent } from './tournament/tournament.component';
+import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TournamentComponent } from './tournament/tournament.component';
     SearchResultComponent,
     SignUpComponent,
     GymDetailsComponent,
-    TournamentComponent
+    TournamentComponent,
+    TournamentDetailsComponent
   ],
   imports: [
     BrowserModule,

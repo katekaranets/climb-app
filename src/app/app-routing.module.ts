@@ -7,6 +7,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { GymDetailsComponent } from './gym-details/gym-details.component';
 import { TournamentComponent } from './tournament/tournament.component';
+import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
 
 const routes: Routes = [
   {
@@ -17,23 +18,24 @@ const routes: Routes = [
   },
   {
     path: 'tournaments',
-    component: TournamentComponent
+    component: TournamentComponent,
+    pathMatch: 'full'
   },
   { 
-    path: 'tournaments/:id', 
+    path: 'tournament/:id',
+    component: TournamentDetailsComponent,
+    pathMatch: 'full'
   },
   {
     path: 'gym-list',
     component: SearchResultComponent,
-    data: {some_data: 'some value'}
+    pathMatch: 'full'
+    // data: {some_data: 'some value'}
   },
   { 
     path: 'gym/:id', 
-    component: GymDetailsComponent
-
-  //   <a [routerLink]="['/hero', hero.id]">
-  //   <span class="badge">{{ hero.id }}</span>{{ hero.name }}
-  // </a>
+    component: GymDetailsComponent,
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -42,7 +44,12 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignUpComponent
+  },
+  {
+    path: '',
+    component: ClimbSearchComponent
   }
+
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 export class GymService {
 
   private gymList = new BehaviorSubject<Array<any>>([]);
-  gymList$ = this.gymList.asObservable();
-  
-
+  public gymList$ = this.gymList.asObservable();
 
   setGymList(list: Array<any>) {
     this.gymList.next(list);

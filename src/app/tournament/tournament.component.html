@@ -2,7 +2,7 @@
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
 </mat-form-field> -->
-<table mat-table *ngIf="tournamentsList" [dataSource]="tournamentsList" class="mat-elevation-z8 result-table">
+<table mat-table *ngIf="tournamentsList.length" [dataSource]="tournamentsList" class="mat-elevation-z8 result-table">
   <ng-container matColumnDef="gym">
     <th mat-header-cell *matHeaderCellDef>Gym</th>
     <td mat-cell *matCellDef="let element">{{element.gym.title}}</td>
@@ -19,10 +19,15 @@
     <th mat-header-cell *matHeaderCellDef>Available Spots</th>
     <td mat-cell *matCellDef="let element">{{element.available_spots}}</td>
   </ng-container>
-  <ng-container matColumnDef="more" stickyEnd>
-    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+  <ng-container matColumnDef="registration" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">Registration</th>
     <td mat-cell *matCellDef="let element">
-      <a [routerLink]="['/tournament', element.id]">Register</a>
+      <button 
+        mat-button 
+        (click)="register(element)" 
+        [disabled]="!element.available_spots">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
     </td>
   </ng-container>
 

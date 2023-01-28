@@ -25,16 +25,9 @@ export class GymApiService {
       }})
   }
 
-  getGyms(id: number | string): Observable<any> {
-    return this.http.get('/api/search/gyms')
-
+  getGym(id:string): Observable<any> {
+    return this.http.get(`/api/gyms/${id}`)
   }
-
-  // getHero(id: number | string) {
-  //   return this.getGyms(id).pipe(
-  //     map((gyms) => gyms.find(gym => gym.id === +id)!)
-  //   );
-  // }
   
   getCountryList(): Observable<any> {
     return this.http.get('/api/search/geo', {
@@ -43,7 +36,7 @@ export class GymApiService {
       }})
   }
 
-  getCityList(country: string) {
+  getCityList(country: string): Observable<any>  {
     return this.http.get('/api/search/geo', {
       params: {
         objType: 'city',

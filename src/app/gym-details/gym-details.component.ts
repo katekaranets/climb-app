@@ -20,7 +20,7 @@ export class GymDetailsComponent {
   ngOnInit() {
     this.gym$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.gymApiService.getGyms(params.get('id')!))
+        this.gymApiService.getGym(String(params.get('id'))))
     );
   }
 

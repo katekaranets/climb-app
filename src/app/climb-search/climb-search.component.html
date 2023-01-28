@@ -3,23 +3,25 @@
     <h1>Find climbing gym</h1>
     <mat-form-field appearance="outline">
       <mat-label>Choose country</mat-label>
-      <mat-select>
+      <mat-select formControlName="country">
         <mat-option  *ngFor="let country of countries" [value]="country.name_en">{{country.name_en}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Choose city</mat-label>
-      <mat-select>
-        <mat-option value="Madrid">Madrid</mat-option>
-        <mat-option value="Madrid">Madrid</mat-option>
-        <mat-option value="Minsk">Minsk</mat-option>
+      <mat-select [disabled]="!searchForm.controls['country'].value" formControlName="city">
+        <mat-option  *ngFor="let city of cities" [value]="city.name_en">{{city.name_en}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Gym name</mat-label>
-      <input type="string" matInput placeholder="Enter the name of the gym">
+      <input type="string" matInput formControlName="q" placeholder="Enter the name of the gym">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-    <button mat-raised-button type="submit" color="primary">Search</button>
+    <div class="button-container">
+      <button mat-raised-button type="submit" color="primary">Search</button>
+      <!-- <a [routerLink]="gyms-list">Show All Gyms</a> -->
+      <button mat-button (click)="openAllGymsList()"><strong>Show All Gyms</strong></button>
+    </div>
   </form>
 </div>
