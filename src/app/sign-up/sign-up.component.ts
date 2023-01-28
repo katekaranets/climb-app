@@ -10,7 +10,8 @@ import { AuthService } from '../auth.service';
 export class SignUpComponent {
   public loginForm = this.formBuilder.group({
     email: ['',Validators.required],
-    password: ['',Validators.required]
+    password: ['',Validators.required],
+    name: ['',Validators.required]
   });
 
   isLoggedIn: boolean = false;
@@ -23,8 +24,8 @@ export class SignUpComponent {
   public signUp() {
     const val = this.loginForm.value;
 
-    if (val.email && val.password) {
-      this.authService.signup(val.email, val.password).subscribe();
+    if (val.email && val.password && val.name) {
+      this.authService.signup(val.email, val.password, val.name).subscribe();
     }
   }
 }

@@ -27,33 +27,23 @@ export class AuthService {
 
 
   public login(email:string, password:string ): Observable<any> {
-    // return of({token: '12345', user:{username: 'kate', email: 'kate@mail.com'}})
-    //       .pipe(
-    //         shareReplay(),
-    //         map((value) => {
-    //           this.handleSignInResponse(value)
-    //           return value}
-    //           )
-    //         )
-    return this.http.post('/api/sign-in', {username: email, password}).pipe(
+    return this.http.post('/api/auth/sign-in', {username: email, password}).pipe(
       shareReplay(),
-      map(value => this.handleSignInResponse(value))
-      )
+      map((value) => {
+        this.handleSignInResponse(value)
+        return value
+      })
+    )
   }
 
-  public signup(email:string, password:string ): Observable<any> {
-    return of({token: '12345', user:{username: 'kate', email: 'kate@mail.com'}})
-          .pipe(
-            shareReplay(),
-            map((value) => {
-              this.handleSignInResponse(value)
-              return value}
-              )
-            )
-    // return this.http.post('/api/sign-in', {username: email, password}).pipe(
-    //   shareReplay(),
-    //   map(() => this.handleSignInResponse())
-    //   )
+  public signup(email:string, password:string, name: string): Observable<any> {
+    return this.http.post('/api/auth/sign-up', {username: name, password, email}).pipe(
+      shareReplay(),
+      map((value) => {
+        this.handleSignInResponse(value)
+        return value
+      })
+      )
   }
 
   public logout(): Observable<any> {
@@ -62,7 +52,7 @@ export class AuthService {
         map(() => {
           this.$auth.next(false);
           sessionStorage.removeItem('token');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/api/login']);
         })
       )
   }
@@ -72,7 +62,8 @@ export class AuthService {
       throw new Error(`We cannot sing you in`);
     }
     this.$auth.next(true);
+    console.log(value.token);
     sessionStorage.setItem('token', value.token)
-    this.router.navigate(['/search']);
+    this.router.navigate(['/api/search']);
   }
 }

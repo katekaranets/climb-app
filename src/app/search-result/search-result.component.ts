@@ -1,18 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
-const GYMS = [
-  {name: 'Hydrogen', weight: 1.0079, address: 'Hercules city blablabla hhghghg'},
-  {name: 'Helium', weight: 4.0026, address: 'He'},
-  {name: 'Lithium', weight: 6.941, address: 'Li'},
-  {name: 'Beryllium', weight: 9.0122, address: 'Be'},
-  {name: 'Boron', weight: 10.811, address: 'B'},
-  {name: 'Carbon', weight: 12.0107, address: 'C'},
-  {name: 'Nitrogen', weight: 14.0067, address: 'N'},
-  {name: 'Oxygen', weight: 15.9994, address: 'O'},
-  {name: 'Fluorine', weight: 18.9984, address: 'F'},
-];
+import { ActivatedRoute } from '@angular/router';
+import { GymService } from '../services/gym.service';
 
 @Component({
   selector: 'app-search-result',
@@ -20,14 +10,22 @@ const GYMS = [
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent {
-  displayedColumns: string[] = ['name', 'address', 'more'];
-  dataSource = GYMS;
+  displayedColumns: string[] = ['title', 'country', 'address', 'more'];
+  public gymList: Array<any> = [];
+  public value = null;
 
   // @ViewChild('paginator1') paginator;
   // @ViewChild(MatSort) sort: MatSort;
   // @ViewChild('paginator1') pag: MatPaginator;
 
-  // constructor() {}
+  constructor(private gymService: GymService){}
+
+  ngOnInit() {
+    this.gymService.gymList$.subscribe( value => {
+      this.gymList = [...value];
+    })
+  }
+
 
   // ngAfterViewInit() {
   //   this.dataSource.paginator = this.paginator;
