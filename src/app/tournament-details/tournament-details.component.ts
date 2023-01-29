@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
-import { GymApiService } from '../services/gym.api.service';
+import { switchMap } from 'rxjs';
+import { TournamentApiService } from '../services/tournament.api.service';
 
 @Component({
   selector: 'app-tournament-details',
@@ -9,26 +9,27 @@ import { GymApiService } from '../services/gym.api.service';
   styleUrls: ['./tournament-details.component.scss']
 })
 export class TournamentDetailsComponent {
-  public gym$!: Observable<any>;
+  public tournament: any = {};
+  public logo: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: GymApiService
+    private service: TournamentApiService,
+
   ) {}
 
   ngOnInit() {
-    this.gym$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.getGym(params.get('id')!))
-    );
+    this.route.paramMap
+    .pipe(
+      switchMap((params: ParamMap) => {
+        this.logo = this.service.getTournamentLogo(String(params.get('id')));
+        return this.service.getTournament(String(params.get('id')))
+      })
+    )
+    .subscribe(tournament => {
+      this.tournament = {...tournament}
+    })
   }
 
-  // gotoHeroes(hero: Hero) {
-  //   const heroId = hero ? hero.id : null;
-  //   // Pass along the hero id if available
-  //   // so that the HeroList component can select that hero.
-  //   // Include a junk 'foo' property for fun.
-  //   this.router.navigate(['/superheroes', { id: heroId, foo: 'foo' }]);
-  // }
 }

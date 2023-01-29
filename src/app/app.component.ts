@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { Subject, takeUntil, take } from 'rxjs';
-import { AuthService } from './auth.service';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from './services/auth.service';
 import { environment } from './../environments/environment.development';
+import { UserService } from './services/user.service';
+import { UserApiService } from './services/user.api.service';
+import { GymService } from './services/gym.service';
 
 
 @Component({
@@ -11,16 +14,29 @@ import { environment } from './../environments/environment.development';
 })
 export class AppComponent {
   public title = 'Climb App';
+  public user: any = {};
   public isAuthenticated = false;
   private $destroy = new Subject<void>();
 
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private gymService: GymService,
+    private userService: UserService,
+    private userApiService: UserApiService
+    ) {
     console.log(environment.apiUrl); 
   }
 
 
   public ngOnInit(): void {
+    this.userApiService.getUser()
+      .subscribe(user => {
+        this.user = {...user};
+        this.userService.setUser(user);
+        this.gymService.setGymList(user.gyms);
+      })
+
     this.authService.$isAuthenticated.pipe(
       takeUntil(this.$destroy)
     ).subscribe((isAuthenticated: boolean) => this.isAuthenticated = isAuthenticated);

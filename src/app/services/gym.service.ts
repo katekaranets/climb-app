@@ -9,7 +9,7 @@ export class GymService {
   private gymList = new BehaviorSubject<Array<any>>([]);
   public gymList$ = this.gymList.asObservable();
 
-  setGymList(list: Array<any>) {
+  public setGymList(list: Array<any>) {
     this.gymList.next(list);
   }
 }

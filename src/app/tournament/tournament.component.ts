@@ -25,22 +25,4 @@ export class TournamentComponent {
     this.router.navigateByUrl(`tournament/${tournament.id}`)
 
   }
-
-  // @ViewChild('paginator1') paginator;
-  // @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild('paginator1') pag: MatPaginator;
-
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
 }

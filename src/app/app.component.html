@@ -5,8 +5,11 @@
     <button mat-button routerLink="/tournaments" routerLinkActive="is-active">Tournaments & Festivals</button>
   </div>
   <div>
-    <button mat-button routerLink="/login" *ngIf="isAuthenticated">
+    <button mat-button routerLink="/gym-list" routerLinkActive="is-active" *ngIf="isAuthenticated">
       MyGyms
+    </button>
+    <button mat-button disabled="true" routerLinkActive="is-active" *ngIf="isAuthenticated">
+      {{user.email}}
     </button>
     <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
       Login

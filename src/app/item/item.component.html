@@ -1,11 +1,13 @@
-<div>
-  <ng-container>
+<div class="item">
+  <div class="logo">
     <img [src]="logo">
-  </ng-container>
-  <ng-container>
-    <h2>{{title}}</h2>
-    <p>{{country}}</p>
-    <p>{{city}}</p>
-    <p>{{address}}</p>
-  </ng-container>
+
+  </div>
+  <div class="description">
+    <h2>{{item.title}}</h2>
+    <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
+    <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
+  </div>
+
 </div>
+

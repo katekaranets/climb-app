@@ -10,7 +10,7 @@ import { __values } from 'tslib';
 })
 export class AuthService {
 
-  private $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(!!sessionStorage.getItem('token'));
+  private $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   public get $isAuthenticated(): Observable<boolean> {
     return this.$auth.asObservable();
   }
@@ -29,6 +29,10 @@ export class AuthService {
     return this.http.get('/api/user');
   }
 
+  public isAuthorized() {
+    const token = localStorage.getItem('token') || null;
+    return !!token;
+  }
 
   public login(email:string, password:string ): Observable<any> {
     return this.http.post('/api/auth/sign-in', {username: email, password}).pipe(
@@ -55,7 +59,7 @@ export class AuthService {
       .pipe(
         map(() => {
           this.$auth.next(false);
-          sessionStorage.removeItem('token');
+          localStorage.removeItem('token');
           this.router.navigate(['/api/login']);
         })
       )
@@ -66,8 +70,13 @@ export class AuthService {
       throw new Error(`We cannot sing you in`);
     }
     this.$auth.next(true);
-    console.log(value.token);
-    sessionStorage.setItem('token', value.token)
+    localStorage.setItem('token', value.token)
     this.router.navigate(['/api/search']);
   }
+
+  public getAuthToken():string | null {
+    const token = localStorage.getItem('token') || null;
+    return token;
+  }
+
 }

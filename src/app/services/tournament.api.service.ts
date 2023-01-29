@@ -19,6 +19,14 @@ export class TournamentApiService {
   getTournaments(): Observable<any> {
     return this.http.get('/api/search/comp')
   }
+
+  getTournament(id:string): Observable<any> {
+    return this.http.get(`/api/comp/${id}`)
+  }
+
+  getTournamentLogo(id: string): string {
+    return `http://localhost:8000/api/comp/logo/${id}`;
+  }
   
   // getCountryList(): Observable<any> {
   //   return this.http.get('/api/search/geo', {

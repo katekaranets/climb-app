@@ -41,13 +41,14 @@ import { CommonModule } from '@angular/common';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClimbSearchComponent } from './climb-search/climb-search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { GymDetailsComponent } from './gym-details/gym-details.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
 import { ItemComponent } from './item/item.component';
+import { AuthInterceptorService } from './services/auth.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ItemComponent } from './item/item.component';
     GymDetailsComponent,
     TournamentComponent,
     TournamentDetailsComponent,
-    ItemComponent
+    ItemComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -129,6 +131,11 @@ import { ItemComponent } from './item/item.component';
   providers: [
     HttpClientModule,
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+     },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { pipe, switchMap } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
+import { GymService } from '../services/gym.service';
 
 export class MyErrorStateMatcher implements MyErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,7 +31,9 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private gymService: GymService,
+    private router: Router
   ) {}
 
   login() {
@@ -40,7 +44,10 @@ export class LoginComponent {
         .pipe(switchMap(() => {
           return this.authService.getUser()
         }))
-        .subscribe();
+        .subscribe(user => {
+          this.gymService.setGymList(user.gyms);
+          this.router.navigate(['gym-list'])
+        });
     }
   }
 }
