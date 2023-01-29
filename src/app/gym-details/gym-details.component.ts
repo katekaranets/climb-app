@@ -22,12 +22,12 @@ export class GymDetailsComponent {
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
-          return combineLatest([this.gymApiService.getGym(String(params.get('id'))), this.gymApiService.getGymLogo(String(params.get('id')))])
+          this.logo = this.gymApiService.getGymLogo(String(params.get('id')));
+          return this.gymApiService.getGym(String(params.get('id')))
         })
       )
-      .subscribe(([gym, logo]) => {
-        this.gym = {...gym};
-        this.logo = logo;
+      .subscribe(gym => {
+        this.gym = {...gym}
       })
   }
 

@@ -29,8 +29,8 @@ export class GymApiService {
     return this.http.get(`/api/gym/${id}`)
   }
 
-  getGymLogo(id: string): Observable<any> {
-    return this.http.get(`/api/gym/logo/${id}`)
+  getGymLogo(id: string): string {
+    return `http://localhost:8000/api/gym/logo/${id}`;
   }
   
   getCountryList(): Observable<any> {

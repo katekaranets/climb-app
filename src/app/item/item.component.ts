@@ -10,6 +10,6 @@ export class ItemComponent {
   @Input() country: string = '';
   @Input() city: string = '';
   @Input() address: string = '';
-  @Input() src: string = '';
+  @Input() logo: string = '';
 
 }
