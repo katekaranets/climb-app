@@ -7,7 +7,13 @@
     <h2>{{item.title}}</h2>
     <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
     <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
-  </div>
 
+    <div class="tournament" *ngIf="isTournament">
+      <p>Starts: {{item.start | date: 'MMM d, y'}}</p>
+      <p>Ends: {{item.start | date: 'MMM d, y'}}</p>
+      <p>Available spots: {{item.available_spots}}</p>
+      <mat-slide-toggle [(ngModel)]="item.is_registered">{{item.is_registered ? 'Registered' : 'Register'}}</mat-slide-toggle>
+    </div>
+  </div>
 </div>
 
