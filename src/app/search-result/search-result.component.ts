@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { ActivatedRoute, ParamMap, Route, Router, RoutesRecognized } from '@angular/router';
+import { filter, of, pairwise, switchMap } from 'rxjs';
 import { GymApiService } from '../services/gym.api.service';
-import { GymService } from '../services/gym.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-search-result',
@@ -13,19 +13,29 @@ export class SearchResultComponent {
   displayedColumns: string[] = ['title', 'country', 'address'];
   public gymList: Array<any> = [];
   public value = null;
+  public isMyGym = false;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
-    private gymService: GymService,
     private gymApiService: GymApiService,
-
+    private userService: UserService
   ){}
 
   ngOnInit() {
-    this.gymService.gymList$
-      .subscribe(value => {
-        this.gymList = [...value];
+    this.route.paramMap
+    .pipe(
+      switchMap((params: any) => {
+        let {country, city, q} = params.params;
+        if (!('country' in params.params)) {
+          return of(this.userService.getUser().gyms);
+        }
+        return this.gymApiService.search(country, city, q)
       })
+    )
+    .subscribe(gyms => {
+      this.gymList = [...gyms]
+    })
   }
 
   openGymPage(gym: any) {

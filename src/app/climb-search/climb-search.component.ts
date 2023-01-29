@@ -59,14 +59,7 @@ export class ClimbSearchComponent {
 }
 
   public search() {
-    let country, city, q;
-    ({country, city, q} = this.searchForm.value);
-
-    const val = this.searchForm.value;
-    this.gymApiService.search(val.country, val.city, val.q).subscribe(value => {
-      this.gymService.setGymList(value);
-      this.router.navigate(['gym-list', value]);
-    });
+    this.router.navigate(['gym-list', this.searchForm.value]);
   }
 
   public openAllGymsList() {

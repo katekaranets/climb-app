@@ -16,6 +16,7 @@ export class AppComponent {
   public title = 'Climb App';
   public user: any = {};
   public isAuthenticated = false;
+  public allGymsSearchParams = {country: '', city: '', q:''}
   private $destroy = new Subject<void>();
 
 

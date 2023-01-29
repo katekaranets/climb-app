@@ -12,4 +12,8 @@ export class GymService {
   public setGymList(list: Array<any>) {
     this.gymList.next(list);
   }
+
+  public getGymList() {
+    return this.gymList.getValue()
+  }
 }

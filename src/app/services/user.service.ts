@@ -12,4 +12,8 @@ export class UserService {
   public setUser(user: Object) {
     this.user.next(user);
   }
+
+  public getUser() {
+    return this.user.getValue()
+  }
 }

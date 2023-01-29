@@ -30,6 +30,12 @@ const routes: Routes = [
     pathMatch: 'full'
     // data: {some_data: 'some value'}
   },
+  {
+    path: 'my-gyms',
+    component: SearchResultComponent,
+    pathMatch: 'full'
+    // data: {some_data: 'some value'}
+  },
   { 
     path: 'gym/:id', 
     component: GymDetailsComponent,
