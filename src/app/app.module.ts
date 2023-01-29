@@ -47,6 +47,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { GymDetailsComponent } from './gym-details/gym-details.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TournamentDetailsComponent } from './tournament-details/tournament-deta
     SignUpComponent,
     GymDetailsComponent,
     TournamentComponent,
-    TournamentDetailsComponent
+    TournamentDetailsComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,

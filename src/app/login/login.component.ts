@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { pipe, switchMap } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 export class MyErrorStateMatcher implements MyErrorStateMatcher {
@@ -35,7 +36,11 @@ export class LoginComponent {
     const val = this.loginForm.value;
 
     if (val.email && val.password) {
-      this.authService.login(val.email, val.password).subscribe();
+      this.authService.login(val.email, val.password)
+        .pipe(switchMap(() => {
+          return this.authService.getUser()
+        }))
+        .subscribe();
     }
   }
 }

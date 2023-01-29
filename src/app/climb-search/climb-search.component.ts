@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { GymApiService} from '../services/gym.api.service';
@@ -29,8 +29,7 @@ export class ClimbSearchComponent {
   constructor (
     private router: Router,
     private gymApiService: GymApiService,
-    private gymService: GymService,
-    private formBuilder: FormBuilder) {}
+    private gymService: GymService) {}
 
   ngOnInit() {
     this.initializeForm();

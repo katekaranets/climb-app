@@ -25,6 +25,10 @@ export class AuthService {
     // this.$auth.complete();
   }
 
+  public getUser(): Observable<any> {
+    return this.http.get('/api/user');
+  }
+
 
   public login(email:string, password:string ): Observable<any> {
     return this.http.post('/api/auth/sign-in', {username: email, password}).pipe(

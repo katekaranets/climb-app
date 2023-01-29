@@ -1,2 +1,1 @@
-<p>gym-details works!</p>
-{{gym$ | json}}
+<app-item *ngIf="gym.title" [src]="logo.url" [title]="gym.title" [country]="gym.country" [city]="gym.city" [address]="gym.address"></app-item>

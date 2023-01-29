@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { combineAll, combineLatest, combineLatestWith, Observable, switchMap } from 'rxjs';
 import { GymApiService } from '../services/gym.api.service';
 
 @Component({
@@ -9,7 +9,8 @@ import { GymApiService } from '../services/gym.api.service';
   styleUrls: ['./gym-details.component.scss']
 })
 export class GymDetailsComponent {
-  gym$!: Observable<any>;
+  public gym: any = {};
+  public logo: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,10 +19,16 @@ export class GymDetailsComponent {
   ) {}
   
   ngOnInit() {
-    this.gym$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.gymApiService.getGym(String(params.get('id'))))
-    );
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) => {
+          return combineLatest([this.gymApiService.getGym(String(params.get('id'))), this.gymApiService.getGymLogo(String(params.get('id')))])
+        })
+      )
+      .subscribe(([gym, logo]) => {
+        this.gym = {...gym};
+        this.logo = logo;
+      })
   }
 
   goToGymList(gym: any) {

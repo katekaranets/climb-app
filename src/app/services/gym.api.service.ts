@@ -26,7 +26,11 @@ export class GymApiService {
   }
 
   getGym(id:string): Observable<any> {
-    return this.http.get(`/api/gyms/${id}`)
+    return this.http.get(`/api/gym/${id}`)
+  }
+
+  getGymLogo(id: string): Observable<any> {
+    return this.http.get(`/api/gym/logo/${id}`)
   }
   
   getCountryList(): Observable<any> {
