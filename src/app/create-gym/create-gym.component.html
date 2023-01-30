@@ -16,7 +16,7 @@
     <mat-form-field appearance="outline">
       <mat-label>City</mat-label>
       <mat-select [disabled]="!gymForm.controls['country'].value" formControlName="city">
-        <mat-option  *ngFor="let city of cities" [value]="city.name_en">{{city.name_en}}</mat-option>
+        <mat-option  *ngFor="let city of cities" [value]="city.id">{{city.name_en}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="outline">

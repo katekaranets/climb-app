@@ -41,7 +41,7 @@ export class GymApiService {
   createGym(gymData: any):Observable<any> {
     return this.http.post(`/api/gym`, {
       country: gymData.country,
-      city: gymData.city,
+      city_id: gymData.city,
       address: gymData.address,
       title: gymData.title,
       description: gymData.description
@@ -65,6 +65,14 @@ export class GymApiService {
         objType: 'city',
         country
       }})
+  }
+
+  getComments(id: string): Observable<any>  {
+    return this.http.get(`/api/gym/comment/${id}`)
+  }
+
+  postComment(id: string, text: any): Observable<any> {
+    return this.http.post(`/api/gym/comment/${id}`, {text})
   }
 
 }

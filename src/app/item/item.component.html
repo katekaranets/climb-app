@@ -1,7 +1,7 @@
 <div class="item">
   <div class="info">
     <div class="logo">
-      <img [src]="logo">
+      <img [src]="logo" placeholder="logo image "/>
     </div>
     <div class="description">
       <div *ngIf="!isEditMode">
@@ -10,7 +10,7 @@
         <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
         <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
   
-        <p>{{gym.description}}</p>
+        <p>{{item.description}}</p>
       </div>
   
       <div *ngIf="isEditMode">
@@ -35,10 +35,6 @@
             <mat-label>Address</mat-label>
             <input type="string" matInput formControlName="address" placeholder="Enter the name of the gym">
           </mat-form-field>
-          <!-- <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description" placeholder="Enter description">
-          </mat-form-field> -->
           <mat-form-field class="example-full-width">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description"></textarea>
@@ -55,18 +51,21 @@
         <p><strong>Ends: </strong> {{item.start | date: 'MMM d, y'}}</p>
         <p><strong>Available spots: </strong> {{item.available_spots}}</p>
         <p><strong>Alrady registered: </strong> {{item.registered}}</p>
-        <button *ngIf="isAuthorized" mat-raised-button type="submit" color="primary" [disabled]="item.is_registered || startsBeforeToday" (click)="sendRegistrartion()">{{item.is_registered ? 'Registered' : 'Register'}}</button>
+        <button *ngIf="isAuthorized" mat-raised-button type="submit" color="primary" [disabled]="item.is_registered || item.is_over || isRegistered" (click)="sendRegistrartion()">{{item.is_registered ? 'Registered' : 'Register'}}</button>
       </div>
     </div>
   </div>
-  <!-- <div class="comments">
+  <div class="comments">
     <h2>Comments</h2>
     <form >
-      <app-comment></app-comment>
-      <button>Leave comment</button>
+      <app-comment [gymId]="item.id"></app-comment>
     </form>
-    <div>
-
+    <div class="comment" *ngFor="let comment of comments">
+      <div class="name">
+        <p >{{comment.owner}}</p>
+        <p >{{comment.created_on | date: 'M/d/yy'}}</p>
+      </div>
+      <p>{{comment.text}}</p>
     </div>
-  </div> -->
+  </div>
 </div>

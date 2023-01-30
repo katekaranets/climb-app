@@ -19,7 +19,7 @@ export class ItemComponent {
   @Output() onSave: EventEmitter<FormGroup> = new EventEmitter();
 
   public isAuthorized: boolean = false;
-  public startsBeforeToday: boolean = false;
+  public isRegistered: boolean = false;
   public gym: any;
   public isEditMode: boolean =  false;
   public countries: Array<any> = [];
@@ -41,6 +41,7 @@ export class ItemComponent {
       updateOn: 'blur'
     })
   });
+  public comments: Array<any>= [];
 
   constructor(
     private tournamentApiService: TournamentApiService,
@@ -69,7 +70,6 @@ export class ItemComponent {
     if(changes['item'] && changes['item'].currentValue) {
       if(this.isTournament && this.item.gym) {
         this.gym = this.item.gym;
-        this.startsBeforeToday = this.isBeforeToday(this.item.start);
       } else {
         this.gym = this.item;
         if(JSON.stringify(this.gym) !== '{}') {
@@ -80,9 +80,21 @@ export class ItemComponent {
             address: this.gym.address,
             description: this.gym.description
           })
+          this.gymApiService.getComments(this.gym.id).subscribe(comments => 
+            this.comments = comments.map(element => {
+              return { 
+                ...element, 
+                created_on: this.convertDate(element.created_on)
+              };
+            })
+          )
         }
       }
     }
+  }
+
+  convertDate(unix_timestamp: any) {
+    return new Date(unix_timestamp * 1000);
   }
 
   edit() {
@@ -100,13 +112,8 @@ export class ItemComponent {
 
   sendRegistrartion () {
     this.tournamentApiService.updateTournament(this.item.id)
-      .subscribe();
-  }
-
-  isBeforeToday(date: any) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-  
-    return date < today;
+      .subscribe((value) => {
+        this.isRegistered = value;
+      });
   }
 }

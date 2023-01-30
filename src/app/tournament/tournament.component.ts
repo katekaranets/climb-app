@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { TournamentApiService } from '../services/tournament.api.service';
 
 @Component({
@@ -16,13 +17,26 @@ export class TournamentComponent {
     private tournamentService: TournamentApiService){}
   
   ngOnInit() {
-    this.tournamentService.getTournaments().subscribe( value => {
+    this.tournamentService.getTournaments()
+    .pipe(map(items => {
+      return items.map(element => {
+        return { 
+          ...element, 
+          start: this.convertDate(element.start),
+          end: this.convertDate(element.end)
+        };
+      });
+    }))
+    .subscribe( value => {
       this.tournamentsList = [...value];
     })
   }
 
   register(tournament: any) {
     this.router.navigateByUrl(`tournament/${tournament.id}`)
+  }
 
+  convertDate(unix_timestamp: any) {
+    return new Date(unix_timestamp * 1000);
   }
 }

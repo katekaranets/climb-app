@@ -51,3 +51,22 @@ form {
 p {
   margin-bottom: 10px;
 }
+
+.comments {
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  .comment {
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: 1px 1px 3px 0px grey;
+  }
+
+  .name {
+    font-size: 14px;
+    line-height: 6px;
+    margin: 15px 0 0 0;
+    color: gray;
+  }
+}

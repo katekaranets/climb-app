@@ -1,4 +1,8 @@
-<mat-form-field class="example-full-width">
-  <mat-label>Leave a comment</mat-label>
-  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-</mat-form-field>
+<form [formGroup]="form" (ngSubmit)="sendComment()">
+  <mat-form-field class="example-full-width" style="width: 700px;">
+    <mat-label>Leave a comment</mat-label>
+    
+    <textarea rows="4" cols="140" matInput formControlName="text" placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary">Leave comment</button>
+</form>
