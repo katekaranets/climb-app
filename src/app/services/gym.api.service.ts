@@ -38,6 +38,16 @@ export class GymApiService {
     })
   }
 
+  createGym(gymData: any):Observable<any> {
+    return this.http.post(`/api/gym`, {
+      country: gymData.country,
+      city: gymData.city,
+      address: gymData.address,
+      title: gymData.title,
+      description: gymData.description
+    })
+  }
+
   getGymLogo(id: string): string {
     return `http://localhost:8000/api/gym/logo/${id}`;
   }

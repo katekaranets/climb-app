@@ -1,7 +1,5 @@
-<!-- <mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-</mat-form-field> -->
+<button mat-raised-button (click)="addNewGym()" color="primary">Add Gym</button>
+
 <table mat-table *ngIf="gymList.length" [dataSource]="gymList" class="mat-elevation-z8 result-table">
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Gym</th>

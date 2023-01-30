@@ -1,0 +1,36 @@
+<div>
+  <h2>
+    Add new gym
+  </h2>
+  <form [formGroup]="gymForm" (ngSubmit)="save()" *ngIf="isAuthorized">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Gym name</mat-label>
+      <input type="string" matInput formControlName="title" placeholder="">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option  *ngFor="let country of countries" [value]="country.name_en">{{country.name_en}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <mat-select [disabled]="!gymForm.controls['country'].value" formControlName="city">
+        <mat-option  *ngFor="let city of cities" [value]="city.name_en">{{city.name_en}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Address</mat-label>
+      <input type="string" matInput formControlName="address" placeholder="Enter the name of the gym">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button type="submit" color="primary" (click)="save()">Save Details</button>
+    </div>
+  </form>
+  
+  <a *ngIf="!isAuthorized" routerLink="/login">Log In to add new gym</a>
+</div>

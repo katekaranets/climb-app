@@ -2,7 +2,22 @@
   height: 100%;
   display: flex;
   justify-content: center;
+
+  > div {
+    width: 800px;
+    background-color: white;
+    opacity: 0.96;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2{
+      margin-bottom: 30px;
+    }
+  }
 }
+
 
 .item {
   background-color: white;

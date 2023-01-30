@@ -7,6 +7,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { GymDetailsComponent } from './gym-details/gym-details.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
+import { CreateGymComponent } from './create-gym/create-gym.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   { 
     path: 'tournament/:id',
     component: TournamentDetailsComponent,
+    pathMatch: 'full'
+  },
+  { 
+    path: 'add-gym',
+    component: CreateGymComponent,
     pathMatch: 'full'
   },
   {

@@ -49,6 +49,8 @@ import { TournamentComponent } from './tournament/tournament.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
 import { ItemComponent } from './item/item.component';
 import { AuthInterceptorService } from './services/auth.interceptor.service';
+import { CommentComponent } from './comment/comment.component';
+import { CreateGymComponent } from './create-gym/create-gym.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { AuthInterceptorService } from './services/auth.interceptor.service';
     TournamentComponent,
     TournamentDetailsComponent,
     ItemComponent,
+    CommentComponent,
+    CreateGymComponent,
     
   ],
   imports: [

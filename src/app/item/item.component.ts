@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { switchMap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import { GymApiService } from '../services/gym.api.service';
 import { TournamentApiService } from '../services/tournament.api.service';
 
@@ -17,6 +18,8 @@ export class ItemComponent {
 
   @Output() onSave: EventEmitter<FormGroup> = new EventEmitter();
 
+  public isAuthorized: boolean = false;
+  public startsBeforeToday: boolean = false;
   public gym: any;
   public isEditMode: boolean =  false;
   public countries: Array<any> = [];
@@ -34,13 +37,18 @@ export class ItemComponent {
     address: new FormControl('', {
       updateOn: 'blur'
     }),
+    description: new FormControl('', {
+      updateOn: 'blur'
+    })
   });
 
   constructor(
     private tournamentApiService: TournamentApiService,
+    private authService: AuthService,
     private gymApiService: GymApiService){}
 
   ngOnInit() {
+    this.isAuthorized = this.authService.isAuthorized();
     this.gymForm.controls['country'].valueChanges
     .pipe(
       switchMap(value => {
@@ -55,13 +63,13 @@ export class ItemComponent {
       .subscribe(value => {
         this.countries = [...value];
     });
-  }
-    
+  } 
 
   ngOnChanges(changes : SimpleChanges){
     if(changes['item'] && changes['item'].currentValue) {
       if(this.isTournament && this.item.gym) {
         this.gym = this.item.gym;
+        this.startsBeforeToday = this.isBeforeToday(this.item.start);
       } else {
         this.gym = this.item;
         if(JSON.stringify(this.gym) !== '{}') {
@@ -69,7 +77,8 @@ export class ItemComponent {
             country: this.gym.country,
             city: this.gym.city,
             title: this.gym.title,
-            address: this.gym.address
+            address: this.gym.address,
+            description: this.gym.description
           })
         }
       }
@@ -92,5 +101,12 @@ export class ItemComponent {
   sendRegistrartion () {
     this.tournamentApiService.updateTournament(this.item.id)
       .subscribe();
+  }
+
+  isBeforeToday(date: any) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    return date < today;
   }
 }

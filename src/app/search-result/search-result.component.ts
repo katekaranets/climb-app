@@ -43,5 +43,9 @@ export class SearchResultComponent {
   openGymPage(gym: any) {
     this.router.navigateByUrl(`gym/${gym.id}`)
   }
+
+  addNewGym() {
+    this.router.navigateByUrl(`add-gym`)
+  }
 }
 
