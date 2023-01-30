@@ -8,7 +8,7 @@ import { TournamentApiService } from '../services/tournament.api.service';
   styleUrls: ['./tournament.component.scss']
 })
 export class TournamentComponent {
-  displayedColumns: string[] = ['gym', 'country', 'city', 'available_spots', 'registration'];
+  displayedColumns: string[] = ['gym', 'start', 'end', 'country', 'city', 'available_spots', 'registration'];
   public tournamentsList: Array<any> = [];
 
   constructor(

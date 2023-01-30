@@ -31,12 +31,14 @@ export class AppComponent {
 
 
   public ngOnInit(): void {
-    this.userApiService.getUser()
+    if (this.authService.isAuthorized() && (JSON.stringify(this.userService.getUser()) === '{}')) {
+      this.userApiService.getUser()
       .subscribe(user => {
         this.user = {...user};
         this.userService.setUser(user);
         this.gymService.setGymList(user.gyms);
       })
+    }
 
     this.authService.$isAuthenticated.pipe(
       takeUntil(this.$destroy)

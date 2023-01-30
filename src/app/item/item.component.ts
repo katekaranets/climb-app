@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { FormGroup, FormControl } from '@angular/forms';
 import { switchMap } from 'rxjs';
 import { GymApiService } from '../services/gym.api.service';
+import { TournamentApiService } from '../services/tournament.api.service';
 
 @Component({
   selector: 'app-item',
@@ -35,7 +36,9 @@ export class ItemComponent {
     }),
   });
 
-  constructor(private gymApiService: GymApiService){}
+  constructor(
+    private tournamentApiService: TournamentApiService,
+    private gymApiService: GymApiService){}
 
   ngOnInit() {
     this.gymForm.controls['country'].valueChanges
@@ -61,12 +64,14 @@ export class ItemComponent {
         this.gym = this.item.gym;
       } else {
         this.gym = this.item;
-        this.gymForm.setValue({
-          country: this.gym.country,
-          city: this.gym.city,
-          title: this.gym.title,
-          address: this.gym.address
-        })
+        if(JSON.stringify(this.gym) !== '{}') {
+          this.gymForm.setValue({
+            country: this.gym.country,
+            city: this.gym.city,
+            title: this.gym.title,
+            address: this.gym.address
+          })
+        }
       }
     }
   }
@@ -82,5 +87,10 @@ export class ItemComponent {
 
   cancel() {
     this.isEditMode = false;
+  }
+
+  sendRegistrartion () {
+    this.tournamentApiService.updateTournament(this.item.id)
+      .subscribe();
   }
 }

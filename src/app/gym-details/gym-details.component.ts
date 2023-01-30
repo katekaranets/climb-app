@@ -32,7 +32,9 @@ export class GymDetailsComponent {
       )
       .subscribe(gym => {
         this.gym = {...gym}
-        this.isMyGym = !!this.userService.getUser().gyms.filter(gym => (gym.id === this.gym.id)).length
+        if(JSON.stringify(this.userService.getUser()) !== '{}') {
+          this.isMyGym = !!this.userService.getUser().gyms.filter(gym => (gym.id === this.gym.id)).length
+        }
       })
 
   }

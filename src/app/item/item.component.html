@@ -8,6 +8,8 @@
       <button mat-button *ngIf="isMyItem" (click)="edit()" color="primary">Edit Gym Details</button>
       <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
       <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
+
+      <p>{{gym.description}}</p>
     </div>
 
     <div *ngIf="isEditMode">
@@ -40,10 +42,11 @@
     </div>
 
     <div class="tournament" *ngIf="isTournament">
-      <p>Starts: {{item.start | date: 'MMM d, y'}}</p>
-      <p>Ends: {{item.start | date: 'MMM d, y'}}</p>
-      <p>Available spots: {{item.available_spots}}</p>
-      <mat-slide-toggle [(ngModel)]="item.is_registered">{{item.is_registered ? 'Registered' : 'Register'}}</mat-slide-toggle>
+      <p><strong>Starts:</strong> {{item.start | date: 'MMM d, y'}}</p>
+      <p><strong>Ends:</strong> {{item.start | date: 'MMM d, y'}}</p>
+      <p><strong>Available spots:</strong> {{item.available_spots}}</p>
+      <p><strong>Alrady registered:</strong> {{item.registered}}</p>
+      <button mat-raised-button type="submit" color="primary" [disabled]="item.is_registered" (click)="sendRegistrartion()">{{item.is_registered ? 'Registered' : 'Register'}}</button>
     </div>
   </div>
 </div>

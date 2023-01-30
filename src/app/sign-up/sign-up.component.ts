@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class SignUpComponent {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private authService: AuthService
   ) {}
 
@@ -25,7 +27,11 @@ export class SignUpComponent {
     const val = this.loginForm.value;
 
     if (val.email && val.password && val.name) {
-      this.authService.signup(val.email, val.password, val.name).subscribe();
+      this.authService.signup(val.email, val.password, val.name).subscribe(() => {
+        this.router.navigate(['/search'])
+      }
+
+      );
     }
   }
 }

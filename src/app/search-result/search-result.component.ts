@@ -34,7 +34,9 @@ export class SearchResultComponent {
       })
     )
     .subscribe(gyms => {
-      this.gymList = [...gyms]
+      if(gyms && gyms.length) {
+        this.gymList = [...gyms]
+      }
     })
   }
 

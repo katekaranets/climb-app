@@ -27,6 +27,10 @@ export class TournamentApiService {
   getTournamentLogo(id: string): string {
     return `http://localhost:8000/api/comp/logo/${id}`;
   }
+
+  updateTournament(id: string): Observable<any> {
+    return this.http.post(`/api/comp/${id}`, {}) 
+  }
   
   // getCountryList(): Observable<any> {
   //   return this.http.get('/api/search/geo', {

@@ -46,7 +46,7 @@ export class LoginComponent {
         }))
         .subscribe(user => {
           this.gymService.setGymList(user.gyms);
-          this.router.navigate(['gym-list'])
+          this.router.navigate(['/search'])
         });
     }
   }
