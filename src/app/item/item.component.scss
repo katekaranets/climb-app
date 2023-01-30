@@ -28,10 +28,15 @@ p {
   align-items: center;
 }
 
-h2 {
+h2+button {
   margin-bottom: 30px;
 }
 
 .tournament {
   margin-top: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }

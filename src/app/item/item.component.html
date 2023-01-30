@@ -1,12 +1,43 @@
 <div class="item">
   <div class="logo">
     <img [src]="logo">
-
   </div>
   <div class="description">
-    <h2>{{item.title}}</h2>
-    <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
-    <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
+    <div *ngIf="!isEditMode">
+      <h2>{{item.title}}</h2>
+      <button mat-button *ngIf="isMyItem" (click)="edit()" color="primary">Edit Gym Details</button>
+      <p><mat-icon>location_on</mat-icon>{{gym.country}}, {{gym.city}}</p>
+      <p><mat-icon>location_city</mat-icon>{{gym.address}}</p>
+    </div>
+
+    <div *ngIf="isEditMode">
+      <form [formGroup]="gymForm" (ngSubmit)="save()">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Gym name</mat-label>
+          <input type="string" matInput formControlName="title" placeholder="">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country">
+            <mat-option  *ngFor="let country of countries" [value]="country.name_en">{{country.name_en}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <mat-select [disabled]="!gymForm.controls['country'].value" formControlName="city">
+            <mat-option  *ngFor="let city of cities" [value]="city.name_en">{{city.name_en}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input type="string" matInput formControlName="address" placeholder="Enter the name of the gym">
+        </mat-form-field>
+        <div class="button-container">
+          <button mat-button *ngIf="isMyItem" (click)="cancel()" color="primary">Cancel Edit</button>
+          <button mat-raised-button type="submit" color="primary">Save Details</button>
+        </div>
+      </form>
+    </div>
 
     <div class="tournament" *ngIf="isTournament">
       <p>Starts: {{item.start | date: 'MMM d, y'}}</p>

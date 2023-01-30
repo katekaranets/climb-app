@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { GymApiService } from '../services/gym.api.service';
@@ -31,15 +32,15 @@ export class GymDetailsComponent {
       )
       .subscribe(gym => {
         this.gym = {...gym}
+        this.isMyGym = !!this.userService.getUser().gyms.filter(gym => (gym.id === this.gym.id)).length
       })
-
-    this.userService.user$.subscribe(user => {
-      this.isMyGym = !!user.gyms.filter(gym => (gym.id === this.gym.id)).length
-    })
 
   }
 
-  edit() {
-console.log('edit');
-  } 
+  save(gymForm: FormGroup) {
+    this.gymApiService.updateGym(this.gym.id, gymForm.value)
+    .subscribe(gym => {
+      this.gym = {...gym}
+    })
+  }
 }

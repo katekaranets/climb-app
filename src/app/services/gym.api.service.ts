@@ -29,6 +29,15 @@ export class GymApiService {
     return this.http.get(`/api/gym/${id}`)
   }
 
+  updateGym(id: string, gymData: any): Observable<any> {
+    return this.http.put(`/api/gym/${id}`, {
+      country: gymData.country,
+      city: gymData.city,
+      address: gymData.address,
+      title: gymData.title
+    })
+  }
+
   getGymLogo(id: string): string {
     return `http://localhost:8000/api/gym/logo/${id}`;
   }

@@ -13,7 +13,6 @@ import { GymService } from '../services/gym.service';
 export class ClimbSearchComponent {
   public countries: Array<any> = [];
   public cities: Array<any> = [];
-  public searchForm1: FormGroup = new FormGroup({});
   public searchForm: FormGroup = new FormGroup({
     country:  new FormControl('', {
       updateOn: 'blur'
@@ -60,9 +59,5 @@ export class ClimbSearchComponent {
 
   public search() {
     this.router.navigate(['gym-list', this.searchForm.value]);
-  }
-
-  public openAllGymsList() {
-    this.router.navigate(['gym-list']);
   }
 }

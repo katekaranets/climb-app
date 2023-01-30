@@ -1,2 +1,1 @@
-<button *ngIf="isMyGym" (click)="edit()" ></button>
-<app-item [logo]="logo" [item]="gym"></app-item>
+<app-item [logo]="logo" [isMyItem]="isMyGym" [item]="gym" (onSave)="save($event)"></app-item>
